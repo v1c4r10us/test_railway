@@ -3,6 +3,7 @@ import interface as elt
 import json
 
 app=FastAPI()
+platforms={'amazon':elt.amazon, 'disney':elt.disney, 'hulu':elt.hulu, 'netflix':elt.netflix}
 
 @app.get('/')
 def get_df():
