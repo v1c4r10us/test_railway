@@ -6,5 +6,5 @@ app=FastAPI()
 
 @app.get('/')
 def get_df():
-    return elt.get_df()
+    return json.loads(elt.get_df())
 
