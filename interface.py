@@ -8,15 +8,15 @@ df_h=pd.read_csv('https://drive.google.com/uc?id=1z6v7Sx4wBkjEBSKz5cp2lMID2EYYIQ
 df_n=pd.read_csv('https://drive.google.com/uc?id=1eArA5pc0zGgn1w2ujBiKkf1hSEf1_Fjk')
 
 #Rating datasets
-#df1=pd.read_csv('https://drive.google.com/uc?id=1RpQwvS0W8AqIsV8bP51iJzDwLSch_o1d')
-#df2=pd.read_csv('https://drive.google.com/uc?id=1KELzh5ibLPv6J5OvFiCjCs3xBhtI2ILf')
+df1=pd.read_csv('https://drive.google.com/uc?id=1RpQwvS0W8AqIsV8bP51iJzDwLSch_o1d')
+df2=pd.read_csv('https://drive.google.com/uc?id=1KELzh5ibLPv6J5OvFiCjCs3xBhtI2ILf')
 #df3=pd.read_csv('https://drive.google.com/uc?id=1H-x_2SEIFHqtdrdev8jwBCzu28DKGNjO')
 #df4=pd.read_csv('https://drive.google.com/uc?id=1Q9Yaf2O8pUn2_LQLSFYqPKn-iJBsJgog')
 #df5=pd.read_csv('https://drive.google.com/uc?id=1-giwHEZExxJyaYIFls8POZBQ7VAa9luS')
 #df6=pd.read_csv('https://drive.google.com/uc?id=1KdL6ZOalBpGcvqHf92l8omyGe_wib_Gx')
 #df7=pd.read_csv('https://drive.google.com/uc?id=1xEAsohYePVW7oPm7mtQLXaPqW-PhBXZc')
 #df8=pd.read_csv('https://drive.google.com/uc?id=1-kfhN2jPDGZVXOnswgUQa2031m3RUUiD')
-#df_rate=[df1, df2, df3, df4, df5, df6, df7, df8]
+df_rate=[df1, df2]
 
 #Functions
 def transform(input_dataframe, idx_char):
@@ -38,6 +38,11 @@ def transform(input_dataframe, idx_char):
     df['duration_type']=df.duration_type.str.lower()
     return df
 
+def transform_ratings():
+    for i in range(0,2):
+        df_rate[i].timestamp=df_rate[i].timestamp.apply(lambda x: datetime.fromtimestamp(x))
+        df_rate[i]['year']=df_rate[i].timestamp.apply(lambda x: x.year)
+
 def get_max_duration(year, platform, duration_type):
     df=platform
     rows=df[(df['type']=='movie')&(df['release_year']==year)&(df['duration_type']==duration_type)].sort_values(by='duration_int')
@@ -46,6 +51,18 @@ def get_max_duration(year, platform, duration_type):
     else:
         resp=None
     return resp
+
+def get_score_count(platform, scored, year):
+    platforms={'amazon':amazon, 'disney':disney, 'hulu': hulu, 'netflix':netflix}
+    qty=0 #Qty of movies in platform with scored at year
+    for i in range(0,2):
+        rating_table=df_rate[i]
+        rating_table=rating_table[(rating_table['rating']>=scored)&(rating_table['year']==year)&(rating_table['movieId'].str[0]==platform[0])] #Filtering
+        rating_table=rating_table[['movieId']].drop_duplicates() #Getting ids without duplicates
+        rating_table=rating_table.set_index('movieId').join(platforms[platform][['id','type']].set_index('id')) #Getting type
+        rating_table=rating_table[rating_table['type']=='movie'] #Classifing if it's a movie
+        qty=qty+rating_table.shape[0]
+    return qty
 
 def get_count_platform(platform):
     df=platform
@@ -83,3 +100,4 @@ amazon=transform(df_a, 'a')
 disney=transform(df_d, 'd')
 hulu=transform(df_h, 'h')
 netflix=transform(df_n, 'n')
+transform_ratings()

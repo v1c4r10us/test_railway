@@ -13,6 +13,10 @@ def get_df():
 def get_max_duration(year:int, platform:str, duration_type:str):
     return {'movie':elt.get_max_duration(year, platforms[platform], duration_type)}
 
+@app.get('/gsc/{platform}')
+def get_score_count(platform:str, scored:float, year:int):
+    return {'total_movies':elt.get_score_count(platform, scored, year)}
+
 @app.get('/gcp/{platform}')
 def get_count_platform(platform:str):
     return {'total_movies':elt.get_count_platform(platforms[platform])}
