@@ -8,8 +8,8 @@ df_h=pd.read_csv('https://drive.google.com/uc?id=1z6v7Sx4wBkjEBSKz5cp2lMID2EYYIQ
 df_n=pd.read_csv('https://drive.google.com/uc?id=1eArA5pc0zGgn1w2ujBiKkf1hSEf1_Fjk')
 
 #Rating datasets
-df1=pd.read_csv('https://drive.google.com/uc?id=1RpQwvS0W8AqIsV8bP51iJzDwLSch_o1d')
-df2=pd.read_csv('https://drive.google.com/uc?id=1KELzh5ibLPv6J5OvFiCjCs3xBhtI2ILf')
+df1=pd.read_csv('ratings/1.csv')
+df2=pd.read_csv('ratings/2.csv')
 #df3=pd.read_csv('https://drive.google.com/uc?id=1H-x_2SEIFHqtdrdev8jwBCzu28DKGNjO')
 #df4=pd.read_csv('https://drive.google.com/uc?id=1Q9Yaf2O8pUn2_LQLSFYqPKn-iJBsJgog')
 #df5=pd.read_csv('https://drive.google.com/uc?id=1-giwHEZExxJyaYIFls8POZBQ7VAa9luS')
