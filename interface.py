@@ -2,10 +2,10 @@ import pandas as pd
 from datetime import datetime
 
 #Streaming Datasets
-df_a=pd.read_csv('https://drive.google.com/uc?id=1WJfCKOAp2UhWfXEBSXHtiIe4ShBw48pB')
-df_d=pd.read_csv('https://drive.google.com/uc?id=187comTc0dz1aqGLSXQ5gLzY70RALoRpJ')
-df_h=pd.read_csv('https://drive.google.com/uc?id=1z6v7Sx4wBkjEBSKz5cp2lMID2EYYIQY4')
-df_n=pd.read_csv('https://drive.google.com/uc?id=1eArA5pc0zGgn1w2ujBiKkf1hSEf1_Fjk')
+df_a=pd.read_csv('datasets/amazon_prime_titles.csv')
+df_d=pd.read_csv('datasets/disney_titles.csv')
+df_h=pd.read_csv('datasets/hulu_titles.csv')
+df_n=pd.read_csv('datasets/netflix_titles.csv')
 
 #Rating datasets
 df1=pd.read_csv('ratings/1.csv')
