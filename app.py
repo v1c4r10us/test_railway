@@ -33,6 +33,3 @@ def prod_per_country(tipo:str, pais:str, anio:int):
 def get_contents(rating:str):
     return elt.get_contents(rating)
 
-@app.get('/gr')
-def get_recommendation(title:str):
-    return {'recommendation': elt.get_recommendation(title)}
