@@ -1,7 +1,6 @@
 import pandas as pd
+import pickle
 from datetime import datetime
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
 
 #Streaming Datasets
 df_a=pd.read_csv('datasets/amazon_prime_titles.csv')
@@ -9,7 +8,6 @@ df_d=pd.read_csv('datasets/disney_plus_titles.csv')
 df_h=pd.read_csv('datasets/hulu_titles.csv')
 df_n=pd.read_csv('datasets/netflix_titles.csv')
 df_rate=pd.read_csv('ratings/rating_global.csv')
-df_rate2=pd.read_csv('ratings/recsys.csv')
 
 #Functions
 def transform(input_dataframe, idx_char):
@@ -100,3 +98,6 @@ rate_h=get_resume_rating('hulu')
 rate_n=get_resume_rating('netflix')
 rates={'amazon': rate_a, 'disney': rate_d, 'hulu': rate_h, 'netflix':rate_n}
 
+all_recommendations={}
+with open('all_recommendations.pkl', 'rb') as f:
+    all_recommendations=pickle.load(f) #Bulk of recommendations
